@@ -1,12 +1,14 @@
 package org.qiyu.hospital.controller;
 
 import com.xlf.utility.BaseResponse;
-import com.xlf.utility.ErrorCode;
 import com.xlf.utility.ResultUtil;
-import com.xlf.utility.exception.BusinessException;
 import lombok.RequiredArgsConstructor;
+import org.qiyu.hospital.model.dto.UserDTO;
+import org.qiyu.hospital.model.entity.UserDO;
 import org.qiyu.hospital.model.vo.AuthRegisterVO;
 import org.qiyu.hospital.service.AuthService;
+import org.qiyu.hospital.service.TokenService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,9 +21,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class AuthController {
     private final AuthService authService;
+    private final TokenService tokenService;
 
     @PostMapping("/register")
-    public ResponseEntity<BaseResponse<Void>> userRegister(
+    public ResponseEntity<BaseResponse<UserDTO>> userRegister(
             @RequestBody @Validated AuthRegisterVO authRegisterVO
     ) {
         // TODO: 用户注册
@@ -33,8 +36,14 @@ public class AuthController {
         //    6. 完成注册
 
         authService.checkUserExist(authRegisterVO);
-        authService.userRegister(authRegisterVO);
-        authService.generateToken();
-        return null;
+        UserDO getUser = authService.userRegister(authRegisterVO);
+        String getToken = tokenService.createToken(getUser.getUuid(), 24L);
+        UserDTO userDTO = new UserDTO();
+        UserDTO.User newUser = new UserDTO.User();
+        BeanUtils.copyProperties(getUser, newUser);
+        userDTO
+                .setUser(newUser)
+                .setToken(getToken);
+        return ResultUtil.success("注册成功", userDTO);
     }
 }

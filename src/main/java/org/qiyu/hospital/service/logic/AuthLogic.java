@@ -30,7 +30,7 @@ public class AuthLogic implements AuthService {
     }
 
     @Override
-    public void userRegister(AuthRegisterVO authRegisterVO) {
+    public UserDO userRegister(AuthRegisterVO authRegisterVO) {
         UserDO newUser = new UserDO();
         BeanUtils.copyProperties(authRegisterVO, newUser);
 
@@ -44,5 +44,6 @@ public class AuthLogic implements AuthService {
                 .setRole(getPatientDO.getRoleUuid());
 
         userMapper.insertUser(newUser);
+        return newUser;
     }
 }
