@@ -1,0 +1,17 @@
+package org.qiyu.hospital.model.vo;
+
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+import lombok.Getter;
+
+@Getter
+public class AuthRegisterVO {
+    @Pattern(regexp = "^[0-9A-Za-z-_]{4,50}", message = "用户名格式不正确")
+    private String userName;
+    @NotBlank(message = "密码不能为空")
+    private String password;
+    @Pattern(regexp = "^1[3-9][0-9]{9}", message = "手机号格式不正确")
+    private String phone;
+    @Pattern(regexp = "^(|\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*)$", message = "邮箱格式有误")
+    private String email;
+}

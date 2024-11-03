@@ -1,0 +1,8 @@
+spring:
+  config:
+    name:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/qiyu_hospital
+    username: "root"
+    password: "123456"
