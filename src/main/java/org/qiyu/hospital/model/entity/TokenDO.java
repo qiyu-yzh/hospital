@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
+import java.sql.Timestamp;
+
 @Data
 @Accessors(chain = true)
 @NoArgsConstructor
@@ -12,6 +14,6 @@ import lombok.experimental.Accessors;
 public class TokenDO {
     private String tokenUuid;
     private String userUuid;
-    private String createdAt;
-    private String expiredAt;
+    private Timestamp createdAt;
+    private Timestamp expiredAt;
 }
