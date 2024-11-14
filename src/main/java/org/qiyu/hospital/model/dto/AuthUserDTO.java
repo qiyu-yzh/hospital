@@ -9,10 +9,7 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserDTO {
-    private String uuid;
-    private String userName;
-    private String phone;
-    private String email;
-    private String role;
+public class AuthUserDTO {
+    private UserDTO user;
+    private String token;
 }

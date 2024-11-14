@@ -1,4 +1,4 @@
-package org.qiyu.hospital.model.entity;
+package org.qiyu.hospital.model.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,9 +7,9 @@ import lombok.experimental.Accessors;
 
 @Data
 @Accessors(chain = true)
-@NoArgsConstructor
 @AllArgsConstructor
-public class TypeDO {
+@NoArgsConstructor
+public class TypeDTO {
     private String typeUuid;
     private String outpatientType;
     private String outpatientIntroduce;

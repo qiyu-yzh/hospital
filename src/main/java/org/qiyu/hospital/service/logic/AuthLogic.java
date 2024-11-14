@@ -6,9 +6,12 @@ import com.xlf.utility.util.UuidUtil;
 import lombok.RequiredArgsConstructor;
 import org.qiyu.hospital.mapper.RoleMapper;
 import org.qiyu.hospital.mapper.UserMapper;
+import org.qiyu.hospital.model.dto.AuthUserDTO;
+import org.qiyu.hospital.model.dto.UserDTO;
 import org.qiyu.hospital.model.entity.RoleDO;
 import org.qiyu.hospital.model.entity.UserDO;
 import org.qiyu.hospital.model.vo.AuthRegisterVO;
+import org.qiyu.hospital.model.vo.UserLoginVO;
 import org.qiyu.hospital.service.AuthService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
@@ -30,7 +33,16 @@ public class AuthLogic implements AuthService {
     }
 
     @Override
-    public UserDO userRegister(AuthRegisterVO authRegisterVO) {
+    public void checkUser(UserLoginVO userLoginVO) {
+        UserDO getUser = userMapper.getUserByUsername(userLoginVO.getUserName());
+        // 用户不存在
+        if (getUser == null) {
+            throw new BusinessException("用户不存在", ErrorCode.OPERATION_DENIED);
+        }
+    }
+
+    @Override
+    public UserDTO userRegister(AuthRegisterVO authRegisterVO) {
         UserDO newUser = new UserDO();
         BeanUtils.copyProperties(authRegisterVO, newUser);
 
@@ -44,6 +56,23 @@ public class AuthLogic implements AuthService {
                 .setRole(getPatientDO.getRoleUuid());
 
         userMapper.insertUser(newUser);
-        return newUser;
+        UserDTO newUserDTO = new UserDTO();
+        BeanUtils.copyProperties(newUser, newUserDTO);
+
+        return newUserDTO;
+    }
+
+    @Override
+    public UserDTO userLogin(UserLoginVO userLoginVO) {
+        UserDO getUser = userMapper.getUserByUsername(userLoginVO.getUserName());
+        if (getUser == null) {
+            throw new BusinessException("用户不存在", ErrorCode.OPERATION_DENIED);
+        }
+        if (!getUser.getPassword().equals(userLoginVO.getPassword())) {
+            throw new BusinessException("密码错误", ErrorCode.OPERATION_DENIED);
+        }
+        UserDTO userDTO = new UserDTO();
+        BeanUtils.copyProperties(getUser, userDTO);
+        return userDTO;
     }
 }
