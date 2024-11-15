@@ -42,9 +42,9 @@ public class UserLogic implements UserService {
 //        }).toList();
         List<UserDTO> userDTOList = new ArrayList<>();
 
-        for (int i = 0; i < userList.size(); i++) {
+        for (UserDO userDO : userList) {
             UserDTO userDTO = new UserDTO();
-            BeanUtils.copyProperties(userList.get(i), userDTO);
+            BeanUtils.copyProperties(userDO, userDTO);
             userDTOList.add(userDTO);
         }
 
