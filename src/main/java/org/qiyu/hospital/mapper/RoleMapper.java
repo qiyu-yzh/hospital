@@ -1,6 +1,5 @@
 package org.qiyu.hospital.mapper;
 
-import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.qiyu.hospital.model.entity.RoleDO;
@@ -18,4 +17,7 @@ public interface RoleMapper {
 
     @Select("SELECT * FROM role WHERE role_uuid = #{uuid} LIMIT 1")
     RoleDO getRoleUuid(String uuid);
+
+    @Select("SELECT * FROM role WHERE role_uuid = #{role} LIMIT 1")
+    RoleDO getRoleByUuid(String role);
 }

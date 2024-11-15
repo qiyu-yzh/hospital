@@ -42,9 +42,9 @@ public class UserLogic implements UserService {
 //        }).toList();
         List<UserDTO> userDTOList = new ArrayList<>();
 
-        for (int i = 0; i < userList.size(); i++) {
+        for (UserDO userDO : userList) {
             UserDTO userDTO = new UserDTO();
-            BeanUtils.copyProperties(userList.get(i), userDTO);
+            BeanUtils.copyProperties(userDO, userDTO);
             userDTOList.add(userDTO);
         }
 
@@ -96,15 +96,17 @@ public class UserLogic implements UserService {
     @Override
     public UserDTO getUserByTokenUuid(String userToken) {
         TokenDO getToken = tokenMapper.getToken(userToken);
+        if (getToken == null) {
+            throw new BusinessException("用户未登录", ErrorCode.FORBIDDEN);
+        }
         UserDO getUser = userMapper.getUserUuid(getToken.getUserUuid());
+        if (getUser == null) {
+            throw new BusinessException("用户不存在", ErrorCode.OPERATION_DENIED);
+        }
         UserDTO userDTO = new UserDTO();
         BeanUtils.copyProperties(getUser, userDTO);
         return userDTO;
     }
-
-
-
-
 
 
 }

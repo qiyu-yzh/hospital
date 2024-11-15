@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>org.qiyu</groupId>
-    <artifactId>hosptial</artifactId>
+    <artifactId>qiyu-hosptial</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>hosptial</name>
     <description>hosptial</description>
