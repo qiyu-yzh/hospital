@@ -1,6 +1,8 @@
 package org.qiyu.hospital.service.logic;
 
 
+import com.xlf.utility.ErrorCode;
+import com.xlf.utility.exception.BusinessException;
 import org.qiyu.hospital.mapper.RoleMapper;
 import org.qiyu.hospital.model.dto.RoleDTO;
 import org.qiyu.hospital.model.entity.RoleDO;
@@ -30,5 +32,23 @@ public class RoleLogic implements RoleService {
             roleDTOList.add(roleDTO);
         }
         return roleDTOList;
+    }
+
+    @Override
+    public RoleDO getRoleByUuid(String role) {
+        RoleDO roleDO = roleMapper.getRoleByUuid(role);
+        if (roleDO == null) {
+            throw new BusinessException("角色不存在", ErrorCode.NOT_EXIST);
+        }
+        return roleDO;
+    }
+
+    @Override
+    public boolean checkRoleHasAdmin(String role) {
+        RoleDO roleDO = roleMapper.getRoleByUuid(role);
+        if (roleDO == null) {
+            throw new BusinessException("角色不存在", ErrorCode.NOT_EXIST);
+        }
+        return "ADMIN".equals(roleDO.getRoleName());
     }
 }
