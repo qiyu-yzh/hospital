@@ -15,4 +15,6 @@ public interface TypeService {
     void addType(ConsoleTypeAddVO consoleTypeAddVO);
 
     void updateType(ConsoleTypeEditVO consoleTypeEditVO);
+
+    TypeDTO getType(String type);
 }

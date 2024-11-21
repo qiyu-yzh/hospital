@@ -54,4 +54,15 @@ public class DoctorLogic implements DoctorService {
                 .setDateBirth(new Date(new SimpleDateFormat("yyyy-MM-dd").parse(doctorAddVO.getDateBirth()).getTime()));
         doctorMapper.addDoctor(newDoctor);
     }
+
+    @Override
+    public DoctorDTO getDoctor(String doctorUuid) {
+        DoctorDO doctorDO = doctorMapper.getDoctorUuid(doctorUuid);
+        if (doctorDO == null) {
+            throw new BusinessException("医生不存在", ErrorCode.OPERATION_DENIED);
+        }
+        DoctorDTO doctorDTO = new DoctorDTO();
+        BeanUtils.copyProperties(doctorDO, doctorDTO);
+        return doctorDTO;
+    }
 }

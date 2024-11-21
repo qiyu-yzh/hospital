@@ -10,4 +10,6 @@ public interface DoctorService {
     List<DoctorDTO> getDoctorList();
 
     void addDoctor(DoctorAddVO doctorAddVO) throws ParseException;
+
+    DoctorDTO getDoctor(String doctorUuid);
 }

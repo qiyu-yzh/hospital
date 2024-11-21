@@ -22,4 +22,8 @@ public interface DoctorMapper {
             VALUES (#{doctorUuid}, #{realName}, #{college}, #{dateBirth}, #{expert}, #{attending}, #{description}, #{user}, #{type})
             """)
     void addDoctor(DoctorDO newDoctor);
+
+
+    @Select("SELECT * FROM doctor WHERE doctor_uuid = #{doctorUuid}")
+    DoctorDO getDoctorUuid(String doctorUuid);
 }

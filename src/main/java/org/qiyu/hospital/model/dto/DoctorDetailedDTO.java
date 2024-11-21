@@ -9,7 +9,7 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 @NoArgsConstructor
 @AllArgsConstructor
-public class DockerDetailedDTO {
+public class DoctorDetailedDTO {
     private DoctorDTO doctor;
     private TypeDTO type;
 }

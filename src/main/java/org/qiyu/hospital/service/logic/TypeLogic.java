@@ -70,4 +70,15 @@ public class TypeLogic implements TypeService {
         typeMapper.updateType(newType);
     }
 
+    @Override
+    public TypeDTO getType(String type) {
+        TypeDO typeDO = typeMapper.getTypeUuid(type);
+        if (typeDO == null) {
+            throw new BusinessException("类型不存在", ErrorCode.OPERATION_DENIED);
+        }
+        TypeDTO typeDTO = new TypeDTO();
+        BeanUtils.copyProperties(typeDO, typeDTO);
+        return typeDTO;
+    }
+
 }
