@@ -21,13 +21,13 @@ public interface TypeMapper {
      int checkTypeExist(String outpatientType);
 
      @Insert("""
-             INSERT INTO type (type_uuid, outpatient_type, outpatient_introduce) 
-             VALUES (#{typeUuid}, #{outpatientType}, #{outpatientIntroduce})
+             INSERT INTO type (type_uuid, outpatient_type, description) 
+             VALUES (#{typeUuid}, #{outpatientType}, #{description})
              """)
      void addType(TypeDO typeDO);
 
      @Update("""
-             UPDATE type SET outpatient_type = #{outpatientType}, outpatient_introduce = #{outpatientIntroduce}
+             UPDATE type SET outpatient_type = #{outpatientType}, description = #{description}
              WHERE type_uuid = #{typeUuid}
              """)
      void updateType(TypeDO typeDO);

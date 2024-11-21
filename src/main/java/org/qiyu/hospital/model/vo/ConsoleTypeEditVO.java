@@ -13,5 +13,5 @@ public class ConsoleTypeEditVO {
     @NotBlank(message = "门诊类型不能为空")
     private String outpatientType;
     @NotBlank(message = "门诊介绍不能为空")
-    private String outpatientIntroduce;
+    private String description;
 }

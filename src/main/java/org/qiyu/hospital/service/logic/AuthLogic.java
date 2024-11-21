@@ -71,8 +71,10 @@ public class AuthLogic implements AuthService {
         if (!getUser.getPassword().equals(userLoginVO.getPassword())) {
             throw new BusinessException("密码错误", ErrorCode.OPERATION_DENIED);
         }
+        RoleDO getRole = roleMapper.getRoleByUuid(getUser.getRole());
         UserDTO userDTO = new UserDTO();
         BeanUtils.copyProperties(getUser, userDTO);
+        userDTO.setRole(getRole.getRoleName());
         return userDTO;
     }
 }

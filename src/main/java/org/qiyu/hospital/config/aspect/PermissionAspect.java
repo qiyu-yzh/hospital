@@ -88,7 +88,7 @@ public class PermissionAspect {
                 if (hasRole != null) {
                     AtomicBoolean isValidate = new AtomicBoolean(false);
                     Arrays.stream(hasRole.value()).forEach(role -> {
-                        if (role.equals(getRole.getRoleUuid())) {
+                        if (role.equals(getRole.getRoleName())) {
                             isValidate.set(true);
                         }
                     });

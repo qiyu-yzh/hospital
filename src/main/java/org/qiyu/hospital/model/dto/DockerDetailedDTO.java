@@ -7,10 +7,9 @@ import lombok.experimental.Accessors;
 
 @Data
 @Accessors(chain = true)
-@AllArgsConstructor
 @NoArgsConstructor
-public class TypeDTO {
-    private String typeUuid;
-    private String outpatientType;
-    private String description;
+@AllArgsConstructor
+public class DockerDetailedDTO {
+    private DoctorDTO doctor;
+    private TypeDTO type;
 }

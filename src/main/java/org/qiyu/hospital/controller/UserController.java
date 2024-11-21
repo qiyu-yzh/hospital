@@ -3,6 +3,8 @@ package org.qiyu.hospital.controller;
 import com.xlf.utility.BaseResponse;
 import com.xlf.utility.ErrorCode;
 import com.xlf.utility.ResultUtil;
+import com.xlf.utility.annotations.HasAuthorize;
+import com.xlf.utility.annotations.HasRole;
 import com.xlf.utility.exception.BusinessException;
 import com.xlf.utility.util.HeaderUtil;
 import jakarta.servlet.http.HttpServletRequest;
@@ -22,6 +24,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/user")
 @RequiredArgsConstructor
+@CrossOrigin("*")
 public class UserController {
     private final UserService userService;
     private final TokenService tokenService;
@@ -30,6 +33,7 @@ public class UserController {
      * 获取用户列表
      * @return 用户列表
      */
+    @HasRole({"ADMIN"})
     @GetMapping("/list")
     public ResponseEntity<BaseResponse<List<UserDTO>>> getUserList() {
         List<UserDTO> userList = userService.getUserList();
@@ -40,6 +44,8 @@ public class UserController {
      * @param uuid 用户uuid
      *             删除用户
      */
+    @HasAuthorize
+    @HasRole({"ADMIN"})
     @DeleteMapping("/{uuid}")
     public ResponseEntity<BaseResponse<Void>> deleteUser(@PathVariable String uuid) {
         userService.deleteUser(uuid);
@@ -50,6 +56,8 @@ public class UserController {
      * @param consoleUserAddVO
      * 添加用户
      */
+    @HasAuthorize
+    @HasRole({"ADMIN"})
     @PostMapping("/console/add")
     public ResponseEntity<BaseResponse<Void>> addUser(@RequestBody @Validated ConsoleUserAddVO consoleUserAddVO) {
         if (consoleUserAddVO.getEmail().isEmpty()) {
@@ -60,12 +68,26 @@ public class UserController {
 
     }
 
+
+    /**
+     * @param consoleUserEditVO 更新用户
+     * @return
+     */
+    @HasAuthorize
+    @HasRole({"ADMIN"})
     @PutMapping("/console/update")
     public ResponseEntity<BaseResponse<Void>> updateUser(@RequestBody @Validated ConsoleUserEditVO consoleUserEditVO) {
         userService.updateUser(consoleUserEditVO);
         return ResultUtil.success("更新用户成功");
     }
 
+
+    /**
+     * 获取当前用户信息
+     * @param request 请求
+     * @return 当前用户信息
+     */
+    @HasAuthorize
     @GetMapping("/current")
     public ResponseEntity<BaseResponse<UserDTO>> userCurrent(
             @NonNull HttpServletRequest request

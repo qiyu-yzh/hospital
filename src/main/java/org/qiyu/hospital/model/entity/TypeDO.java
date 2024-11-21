@@ -12,5 +12,5 @@ import lombok.experimental.Accessors;
 public class TypeDO {
     private String typeUuid;
     private String outpatientType;
-    private String outpatientIntroduce;
+    private String description;
 }
