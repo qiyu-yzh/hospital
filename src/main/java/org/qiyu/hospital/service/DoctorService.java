@@ -12,4 +12,6 @@ public interface DoctorService {
     void addDoctor(DoctorAddVO doctorAddVO) throws ParseException;
 
     DoctorDTO getDoctor(String doctorUuid);
+
+    void deleteDoctor(String doctorUuid);
 }

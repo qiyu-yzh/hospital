@@ -1,5 +1,6 @@
 package org.qiyu.hospital.mapper;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -26,4 +27,7 @@ public interface DoctorMapper {
 
     @Select("SELECT * FROM doctor WHERE doctor_uuid = #{doctorUuid}")
     DoctorDO getDoctorUuid(String doctorUuid);
+
+    @Delete("DELETE FROM doctor WHERE doctor_uuid = #{doctorUuid}")
+    void deleteDoctor(String doctorUuid);
 }

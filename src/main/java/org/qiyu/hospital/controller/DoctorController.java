@@ -45,4 +45,10 @@ public class DoctorController {
         DoctorDetailedDTO doctorDetailedDTO = new DoctorDetailedDTO(doctor, type);
         return ResultUtil.success("获取医生成功", doctorDetailedDTO);
     }
+
+    @DeleteMapping("/{doctor_uuid}")
+    public ResponseEntity<BaseResponse<Void>> deleteDoctor(@PathVariable("doctor_uuid") String doctorUuid) {
+        doctorService.deleteDoctor(doctorUuid);
+        return ResultUtil.success("删除医生成功");
+    }
 }

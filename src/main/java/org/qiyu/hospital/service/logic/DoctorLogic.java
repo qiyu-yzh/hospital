@@ -65,4 +65,13 @@ public class DoctorLogic implements DoctorService {
         BeanUtils.copyProperties(doctorDO, doctorDTO);
         return doctorDTO;
     }
+
+    @Override
+    public void deleteDoctor(String doctorUuid) {
+        DoctorDO doctorDO = doctorMapper.getDoctorUuid(doctorUuid);
+        if (doctorDO == null) {
+            throw new BusinessException("医生不存在", ErrorCode.OPERATION_DENIED);
+        }
+        doctorMapper.deleteDoctor(doctorUuid);
+    }
 }
