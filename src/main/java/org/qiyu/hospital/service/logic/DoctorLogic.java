@@ -7,6 +7,7 @@ import org.qiyu.hospital.mapper.DoctorMapper;
 import org.qiyu.hospital.model.dto.DoctorDTO;
 import org.qiyu.hospital.model.entity.DoctorDO;
 import org.qiyu.hospital.model.vo.DoctorAddVO;
+import org.qiyu.hospital.model.vo.DoctorEditVO;
 import org.qiyu.hospital.service.DoctorService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -51,7 +52,7 @@ public class DoctorLogic implements DoctorService {
         BeanUtils.copyProperties(doctorAddVO, newDoctor);
         newDoctor
                 .setDoctorUuid(UuidUtil.generateStringUuid())
-                .setDateBirth(new Date(new SimpleDateFormat("yyyy-MM-dd").parse(doctorAddVO.getDateBirth()).getTime()));
+                .setDateBirth(String.valueOf(new Date(new SimpleDateFormat("yyyy-MM-dd").parse(doctorAddVO.getDateBirth()).getTime())));
         doctorMapper.addDoctor(newDoctor);
     }
 
@@ -73,5 +74,16 @@ public class DoctorLogic implements DoctorService {
             throw new BusinessException("医生不存在", ErrorCode.OPERATION_DENIED);
         }
         doctorMapper.deleteDoctor(doctorUuid);
+    }
+
+    @Override
+    public void updateDoctor(DoctorEditVO doctorEditVO) {
+        DoctorDO doctorDO = doctorMapper.getDoctorUuid(doctorEditVO.getDoctorUuid());
+        if (doctorDO == null) {
+            throw new BusinessException("医生不存在", ErrorCode.OPERATION_DENIED);
+        }
+        DoctorDO newDoctor = new DoctorDO();
+        BeanUtils.copyProperties(doctorEditVO, newDoctor);
+        doctorMapper.updateDoctor(newDoctor);
     }
 }

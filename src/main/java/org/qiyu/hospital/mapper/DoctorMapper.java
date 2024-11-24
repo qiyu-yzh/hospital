@@ -1,9 +1,6 @@
 package org.qiyu.hospital.mapper;
 
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 import org.qiyu.hospital.model.entity.DoctorDO;
 
 import java.util.List;
@@ -30,4 +27,10 @@ public interface DoctorMapper {
 
     @Delete("DELETE FROM doctor WHERE doctor_uuid = #{doctorUuid}")
     void deleteDoctor(String doctorUuid);
+
+    @Update("""
+            UPDATE doctor SET real_name = #{realName}, college = #{college}, date_birth = #{dateBirth}, expert = #{expert}, attending = #{attending}, description = #{description}, user = #{user}, type = #{type}
+            WHERE doctor_uuid = #{doctorUuid}
+            """)
+    void updateDoctor(DoctorDO doctorDO);
 }

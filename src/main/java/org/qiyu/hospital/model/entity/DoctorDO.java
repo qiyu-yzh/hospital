@@ -17,7 +17,7 @@ public class DoctorDO {
     private String type;
     private String realName;
     private String college;
-    private Date dateBirth;
+    private String dateBirth;
     private Boolean expert;
     private String attending;
     private String description;

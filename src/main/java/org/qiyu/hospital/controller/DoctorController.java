@@ -8,6 +8,7 @@ import org.qiyu.hospital.model.dto.DoctorDTO;
 import org.qiyu.hospital.model.dto.DoctorDetailedDTO;
 import org.qiyu.hospital.model.dto.TypeDTO;
 import org.qiyu.hospital.model.vo.DoctorAddVO;
+import org.qiyu.hospital.model.vo.DoctorEditVO;
 import org.qiyu.hospital.service.DoctorService;
 import org.qiyu.hospital.service.TypeService;
 import org.springframework.http.ResponseEntity;
@@ -51,4 +52,11 @@ public class DoctorController {
         doctorService.deleteDoctor(doctorUuid);
         return ResultUtil.success("删除医生成功");
     }
+
+    @PutMapping("/update")
+    public ResponseEntity<BaseResponse<Void>> updateDoctor( @RequestBody @Validated DoctorEditVO doctorEditVO) {
+        doctorService.updateDoctor(doctorEditVO);
+        return ResultUtil.success("更新医生成功");
+    }
+
 }
