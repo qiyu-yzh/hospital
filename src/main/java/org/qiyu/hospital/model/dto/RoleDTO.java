@@ -11,5 +11,5 @@ import lombok.experimental.Accessors;
 public class RoleDTO {
     private String roleUuid;
     private String roleName;
-    private String nickName;
+    private String nickname;
 }

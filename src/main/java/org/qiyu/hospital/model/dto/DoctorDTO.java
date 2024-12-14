@@ -16,9 +16,9 @@ public class DoctorDTO {
     private String user;
     private String type;
     private String realName;
-    private String collage;
-    private Date dateBirth;
-    private boolean expert;
+    private String college;
+    private String dateBirth;
+    private Boolean expert;
     private String attending;
     private String description;
 }

@@ -1,4 +1,4 @@
-package org.qiyu.hospital.model.entity;
+package org.qiyu.hospital.model.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,7 +11,7 @@ import java.sql.Timestamp;
 @Accessors(chain = true)
 @NoArgsConstructor
 @AllArgsConstructor
-public class RegistrationDO {
+public class RegistrationDTO {
     private String registrationUuid;
     private String user;
     private String doctor;

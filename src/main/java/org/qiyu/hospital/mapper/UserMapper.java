@@ -1,10 +1,8 @@
 package org.qiyu.hospital.mapper;
 
 import org.apache.ibatis.annotations.*;
-import org.qiyu.hospital.model.dto.UserDTO;
 import org.qiyu.hospital.model.entity.UserDO;
 import org.qiyu.hospital.model.vo.AuthRegisterVO;
-import org.qiyu.hospital.model.vo.UserLoginVO;
 
 import java.util.List;
 
@@ -50,6 +48,17 @@ public interface UserMapper {
             UPDATE user SET user_name = #{userName}, password = #{password}, phone = #{phone}, email = #{email}, role = #{role}
             WHERE uuid = #{uuid}
             """)
+    void consoleUpdateUser(UserDO userDO);
+
+    @Update("""
+            UPDATE user SET user_name = #{userName}, phone = #{phone}, email = #{email}
+            WHERE uuid = #{uuid}
+            """)
     void updateUser(UserDO userDO);
 
+    @Update("""
+            UPDATE user SET password = #{password}
+            WHERE uuid = #{uuid}
+            """)
+    void UpdatePassword(UserDO userDO);
 }

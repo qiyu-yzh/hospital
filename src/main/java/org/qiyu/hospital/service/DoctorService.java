@@ -17,4 +17,6 @@ public interface DoctorService {
     void deleteDoctor(String doctorUuid);
 
     void updateDoctor(DoctorEditVO doctorEditVO);
+
+    void houseCalls(String userUuid, String realName);
 }

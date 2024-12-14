@@ -2,6 +2,7 @@ package org.qiyu.hospital.mapper;
 
 import org.apache.ibatis.annotations.*;
 import org.qiyu.hospital.model.entity.DoctorDO;
+import org.qiyu.hospital.model.entity.RegistrationDO;
 
 import java.util.List;
 
@@ -33,4 +34,13 @@ public interface DoctorMapper {
             WHERE doctor_uuid = #{doctorUuid}
             """)
     void updateDoctor(DoctorDO doctorDO);
+
+    @Update("""
+            UPDATE registration SET is_final = 1 WHERE registration_uuid = #{registrationUuid}
+            """)
+    void updateCall(String registrationUuid);
+
+
+    @Select("SELECT * FROM doctor WHERE user = #{uuid}")
+    DoctorDO getDoctorByUserUuid(String uuid);
 }

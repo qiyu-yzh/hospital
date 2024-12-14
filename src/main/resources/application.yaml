@@ -6,3 +6,7 @@ spring:
     url: jdbc:mysql://localhost:3306/qiyu_hospital
     username: "root"
     password: "123456"
+logging:
+  level:
+    org.qiyu.hospital: debug
+    root: info

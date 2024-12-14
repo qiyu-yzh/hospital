@@ -6,7 +6,9 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
+@ToString
 @Getter
 @Setter
 public class RegistrationVO {
@@ -15,10 +17,10 @@ public class RegistrationVO {
 
     @Min(value = 0, message = "年龄不能小于0")
     @Max(value = 120, message = "年龄不能大于120")
-    private Short age;
+    private Integer age;
 
     @Min(value = 0, message = "性别不能小于0")
-    private Short gender;
+    private Integer gender;
 
     @NotBlank(message = "时间不能为空")
     private String time;

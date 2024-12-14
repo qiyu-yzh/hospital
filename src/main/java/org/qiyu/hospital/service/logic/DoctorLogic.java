@@ -3,9 +3,12 @@ package org.qiyu.hospital.service.logic;
 import com.xlf.utility.ErrorCode;
 import com.xlf.utility.exception.BusinessException;
 import com.xlf.utility.util.UuidUtil;
+import lombok.RequiredArgsConstructor;
 import org.qiyu.hospital.mapper.DoctorMapper;
+import org.qiyu.hospital.mapper.RegistrationMapper;
 import org.qiyu.hospital.model.dto.DoctorDTO;
 import org.qiyu.hospital.model.entity.DoctorDO;
+import org.qiyu.hospital.model.entity.RegistrationDO;
 import org.qiyu.hospital.model.vo.DoctorAddVO;
 import org.qiyu.hospital.model.vo.DoctorEditVO;
 import org.qiyu.hospital.service.DoctorService;
@@ -21,14 +24,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class DoctorLogic implements DoctorService {
-
     private static final Logger log = LoggerFactory.getLogger(DoctorLogic.class);
-    private final DoctorMapper doctorMapper;
 
-    public DoctorLogic(DoctorMapper doctorMapper) {
-        this.doctorMapper = doctorMapper;
-    }
+    private final DoctorMapper doctorMapper;
+    private final RegistrationMapper registrationMapper;
+
 
     @Override
     public List<DoctorDTO> getDoctorList() {
@@ -85,5 +87,14 @@ public class DoctorLogic implements DoctorService {
         DoctorDO newDoctor = new DoctorDO();
         BeanUtils.copyProperties(doctorEditVO, newDoctor);
         doctorMapper.updateDoctor(newDoctor);
+    }
+
+    @Override
+    public void houseCalls(String userUuid, String realName) {
+        RegistrationDO getLastRegistration = registrationMapper.getLastRegistration(userUuid, realName);
+        if (getLastRegistration == null) {
+            throw new BusinessException("挂号不存在", ErrorCode.OPERATION_DENIED);
+        }
+        doctorMapper.updateCall(getLastRegistration.getRegistrationUuid());
     }
 }

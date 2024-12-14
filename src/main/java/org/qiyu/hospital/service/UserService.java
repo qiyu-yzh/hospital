@@ -3,6 +3,8 @@ package org.qiyu.hospital.service;
 import org.qiyu.hospital.model.dto.UserDTO;
 import org.qiyu.hospital.model.vo.ConsoleUserAddVO;
 import org.qiyu.hospital.model.vo.ConsoleUserEditVO;
+import org.qiyu.hospital.model.vo.UserEditVO;
+import org.qiyu.hospital.model.vo.UserUpdatePasswordVO;
 
 import java.util.List;
 
@@ -11,9 +13,13 @@ public interface UserService {
 
     void deleteUser(String uuid);
 
-    void addUser(ConsoleUserAddVO consoleUserAddVO);
+    UserDTO addUser(ConsoleUserAddVO consoleUserAddVO);
 
-    void updateUser(ConsoleUserEditVO consoleUserEditVO);
+    void consoleUpdateUser(ConsoleUserEditVO consoleUserEditVO);
+
+    void updateUser(UserEditVO userEditVO);
+
+    void updatePassword(UserUpdatePasswordVO userUpdatePasswordVO);
 
     UserDTO getUserByTokenUuid(String userToken);
 }

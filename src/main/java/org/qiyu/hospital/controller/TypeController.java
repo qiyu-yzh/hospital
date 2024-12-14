@@ -29,12 +29,13 @@ public class TypeController {
      *
      */
 
-    @HasRole({"ADMIN"})
+
     @GetMapping("/list")
     public ResponseEntity<BaseResponse<List<TypeDTO>>> getTypeList() {
         List<TypeDTO> typeList = typeService.getTypeList();
         return ResultUtil.success("获取类型列表成功", typeList);
     }
+
 
     /**
      * @param uuid 类型uuid
@@ -67,7 +68,6 @@ public class TypeController {
      * 更新类型
      * @return
      */
-    @HasAuthorize
     @HasRole({"ADMIN"})
     @PutMapping("/console/update")
     public ResponseEntity<BaseResponse<Void>> updateType(@RequestBody @Validated ConsoleTypeEditVO consoleTypeEditVO) {
@@ -75,4 +75,15 @@ public class TypeController {
         return ResultUtil.success("更新类型成功");
     }
 
+    /**
+     * @param type
+     * 获取类型
+     * @return
+     */
+    @HasRole({"ADMIN"})
+    @GetMapping("/{type}")
+    public ResponseEntity<BaseResponse<TypeDTO>> getType(@PathVariable String type) {
+        TypeDTO typeDTO = typeService.getType(type);
+        return ResultUtil.success("获取类型成功", typeDTO);
+    }
 }

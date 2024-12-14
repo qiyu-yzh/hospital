@@ -13,6 +13,8 @@ import lombok.RequiredArgsConstructor;
 import org.qiyu.hospital.model.dto.UserDTO;
 import org.qiyu.hospital.model.vo.ConsoleUserAddVO;
 import org.qiyu.hospital.model.vo.ConsoleUserEditVO;
+import org.qiyu.hospital.model.vo.UserEditVO;
+import org.qiyu.hospital.model.vo.UserUpdatePasswordVO;
 import org.qiyu.hospital.service.TokenService;
 import org.qiyu.hospital.service.UserService;
 import org.springframework.http.ResponseEntity;
@@ -59,12 +61,12 @@ public class UserController {
     @HasAuthorize
     @HasRole({"ADMIN"})
     @PostMapping("/console/add")
-    public ResponseEntity<BaseResponse<Void>> addUser(@RequestBody @Validated ConsoleUserAddVO consoleUserAddVO) {
+    public ResponseEntity<BaseResponse<UserDTO>> addUser(@RequestBody @Validated ConsoleUserAddVO consoleUserAddVO) {
         if (consoleUserAddVO.getEmail().isEmpty()) {
             consoleUserAddVO.setEmail(null);
         }
-        userService.addUser(consoleUserAddVO);
-        return ResultUtil.success("添加用户成功");
+        UserDTO getUserUuid = userService.addUser(consoleUserAddVO);
+        return ResultUtil.success("添加用户成功", getUserUuid);
 
     }
 
@@ -77,7 +79,7 @@ public class UserController {
     @HasRole({"ADMIN"})
     @PutMapping("/console/update")
     public ResponseEntity<BaseResponse<Void>> updateUser(@RequestBody @Validated ConsoleUserEditVO consoleUserEditVO) {
-        userService.updateUser(consoleUserEditVO);
+        userService.consoleUpdateUser(consoleUserEditVO);
         return ResultUtil.success("更新用户成功");
     }
 
@@ -101,6 +103,30 @@ public class UserController {
         }
     }
 
+    /**
+     * @param userEditVO 用户uuid
+     * 修改用户信息
+     * @return
+     */
+    @HasAuthorize
+    @PutMapping("/update")
+    public ResponseEntity<BaseResponse<Void>> updateUse(@RequestBody @Validated  UserEditVO userEditVO) {
+        userService.updateUser(userEditVO);
+        return ResultUtil.success("修改用户信息成功");
+    }
+
+    @HasAuthorize
+    @PutMapping("/updatePassword")
+    public ResponseEntity<BaseResponse<Void>> updatePassword(@RequestBody @Validated  UserUpdatePasswordVO userUpdatePasswordVO) {
+        userService.updatePassword(userUpdatePasswordVO);
+        return ResultUtil.success("修改用户密码成功");
+    }
+
 }
+
+
+
+
+
 
 
